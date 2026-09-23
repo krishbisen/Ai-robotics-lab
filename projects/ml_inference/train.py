@@ -1,18 +1,29 @@
 from pathlib import Path
-
+import json
 import joblib
 from sklearn.datasets import load_iris
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from ai_robotics.ml.evaluation import evaluate_classification
 
 
-MODEL_PATH = Path("models/iris_model.pkl")
+CONFIG_PATH = Path("configs/ml_config.json")
 
 
+def load_config():
+    with open(CONFIG_PATH, "r") as file:
+        return json.load(file)
+
+    
 def main():
+
+    config = load_config()
+
+    MODEL_PATH = Path(config["model_path"])
+
+
     # 1. Load dataset
     iris = load_iris()
 
@@ -23,24 +34,26 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
-        test_size=0.2,
-        random_state=42,
+        test_size=config["test_size"],
+        random_state=config["random_state"],
         stratify=y,
     )
 
     # 3. Create model pipeline
     model = Pipeline([
         ("scaler", StandardScaler()),
-        ("classifier", LogisticRegression(max_iter=200))
+        ("classifier", LogisticRegression(max_iter=config["max_iter"]))
     ])
 
     # 4. Train
     model.fit(X_train, y_train)
 
     # 5. Evaluate
-    predictions = model.predict(X_test)
-    accuracy = accuracy_score(y_test, predictions)
-
+    accuracy = evaluate_classification(
+        model,
+        X_test,
+        y_test,
+    )
     print(f"Accuracy: {accuracy:.2f}")
 
     # 6. Save model
