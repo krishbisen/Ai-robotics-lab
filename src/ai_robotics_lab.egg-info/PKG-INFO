@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: ai-robotics-lab
+Version: 0.1.0
+Summary: AI, Computer Vision and Robotics experiments
+Requires-Python: >=3.13
+Requires-Dist: scikit-learn
+Requires-Dist: joblib
