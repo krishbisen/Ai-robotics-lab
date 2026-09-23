@@ -58,6 +58,7 @@ def main():
     print(f"Precision: {metrics['precision']:.2f}")
     print(f"Recall: {metrics['recall']:.2f}")
     print(f"F1 Score: {metrics['f1']:.2f}")
+    print(f"Confusion Matrix:\n{metrics['confusion_matrix']}")
 
 
     # 6. Save model
