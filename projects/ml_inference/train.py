@@ -49,12 +49,16 @@ def main():
     model.fit(X_train, y_train)
 
     # 5. Evaluate
-    accuracy = evaluate_classification(
+    metrics = evaluate_classification(
         model,
         X_test,
         y_test,
     )
-    print(f"Accuracy: {accuracy:.2f}")
+    print(f"Accuracy: {metrics['accuracy']:.2f}")
+    print(f"Precision: {metrics['precision']:.2f}")
+    print(f"Recall: {metrics['recall']:.2f}")
+    print(f"F1 Score: {metrics['f1']:.2f}")
+
 
     # 6. Save model
     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
