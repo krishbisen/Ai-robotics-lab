@@ -11,19 +11,21 @@ CLASS_NAMES = [
     "virginica",
 ]
 
-def main():
-    # Load the trained model
+
+def predict(sample):
     model = joblib.load(MODEL_PATH)
 
-    # New flower measurement
-    sample = [[5.1, 3.5, 1.4, 0.2]]
+    prediction = model.predict([sample])
 
-    # Make prediction
-    prediction = model.predict(sample)
-    predicted_class = CLASS_NAMES[prediction[0]]
+    return CLASS_NAMES[prediction[0]]
 
 
-    print(f"Predicted class: {predicted_class}")
+def main():
+    sample = [5.1, 3.5, 1.4, 0.2]
+
+    result = predict(sample)
+
+    print(f"Predicted class: {result}")
 
 
 if __name__ == "__main__":
