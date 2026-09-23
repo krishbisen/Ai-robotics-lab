@@ -1,0 +1,6 @@
+{
+    "model_path":"model/iris_model.pkl",
+    "test_size":0.2,
+    "random_state":42,
+    "max_iter":200
+}
